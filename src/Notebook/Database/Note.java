@@ -1,3 +1,5 @@
+package Notebook.Database;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -5,13 +7,12 @@ public class Note {
     public String name;
     public String contact;
 
-    public Note(String name, String contact) {
+    public Note(String name) {
         this.name = name;
-        this.contact = contact;
     }
 
     public void save() throws SQLException {
-        String sql = String.format("INSERT INTO Notes(Name, Contact) VALUES('%s', '%s')", name, contact);
+        String sql = String.format("INSERT INTO Notes(Name) VALUES('%s', '%s')", name);
         PreparedStatement st = DataBase.con.prepareStatement(sql);
         st.execute();
     }

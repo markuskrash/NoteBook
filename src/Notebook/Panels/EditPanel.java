@@ -1,19 +1,21 @@
+package Notebook.Panels;
+
+import Notebook.MainWindow;
+import Notebook.Database.Note;
+
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 
-public class EditWindow extends JFrame {
+public class EditPanel extends JPanel {
 
-    public JTextField nameJTF = new JTextField();
-    public JTextField contactJTF = new JTextField();
-    public JButton confirmBtn = new JButton("Подтвердить");
-    public JButton deleteBtn = new JButton("Удалить");
-    public EditWindow(String string){
-        setSize(500, 300);
+    private JTextField nameJTF = new JTextField();
+    private JTextField contactJTF = new JTextField();
+    private JButton confirmBtn = new JButton("Подтвердить");
+    private JButton deleteBtn = new JButton("Удалить");
+    public MainWindow MainWindowInstance = MainWindow.instance;
+    public EditPanel(String string){
         setLayout(new GridBagLayout());
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setTitle("Add Note");
 
         GridBagConstraints gbc = new GridBagConstraints(
                 0, 0, 4, 1, 1, 1,
@@ -58,8 +60,8 @@ public class EditWindow extends JFrame {
 
 
         confirmBtn.addActionListener(e -> {
-            Note note = new Note(nameJTF.getText(), contactJTF.getText());
-            Note prev = new Note(Name, Contact);
+            Note note = new Note(nameJTF.getText());
+            Note prev = new Note(Name);
             try {
                 note.update(prev);
                 MainWindow wnd = new MainWindow();
@@ -69,11 +71,9 @@ public class EditWindow extends JFrame {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
-
-            dispose();
         });
         deleteBtn.addActionListener(e -> {
-            Note note = new Note(Name, Contact);
+            Note note = new Note(Name);
             try {
                 note.delete();
                 MainWindow wnd = new MainWindow();
@@ -83,8 +83,6 @@ public class EditWindow extends JFrame {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
-
-            dispose();
         });
     }
 }
