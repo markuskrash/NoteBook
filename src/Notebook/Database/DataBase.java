@@ -33,7 +33,7 @@ public class DataBase {
 
         sql = """
                 CREATE TABLE IF NOT EXISTS ContactType(
-                    id INTEGER,
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
                     type TEXT
                 )""";
         st = con.prepareStatement(sql);

@@ -20,7 +20,11 @@ public class Contact {
     }
 
     public void save() throws SQLException {
-        String sql = String.format("INSERT INTO Contacts(type, contact, idN) VALUES('%s', '%s', '%s')", type, contact, idN);
+        String sql = String.format("SELECT id FROM ContactType WHERE type = '%s'", type);
+        PreparedStatement ps = DataBase.con.prepareStatement(sql);
+        ResultSet resultSet = ps.executeQuery();
+        this.type = resultSet.getString(1);
+        sql = String.format("INSERT INTO Contacts(type, contact, idN) VALUES('%s', '%s', '%s')", type, contact, idN);
         PreparedStatement st = DataBase.con.prepareStatement(sql);
         st.execute();
     }

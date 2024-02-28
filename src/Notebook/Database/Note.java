@@ -45,7 +45,10 @@ public class Note {
         ResultSet resultSet = ps.executeQuery();
         Vector<Contact> contacts = new Vector<>();
         while (resultSet.next()){
-            contacts.add(new Contact(resultSet.getString(1), resultSet.getString(2), getID()));
+            sql = String.format("SELECT type FROM ContactType WHERE id = '%s'", resultSet.getString(1));
+            ps = DataBase.con.prepareStatement(sql);
+            ResultSet rSet = ps.executeQuery();
+            contacts.add(new Contact(rSet.getString(1), resultSet.getString(2), getID()));
         }
         return contacts;
     }
