@@ -4,6 +4,7 @@ import Notebook.MainWindow;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class MainPanel extends JPanel {
     private   JPanel jPanel = new JPanel(new BorderLayout());
@@ -52,7 +53,13 @@ public class MainPanel extends JPanel {
 
         editBtn.addActionListener(e -> {
             if(MainWindowInstance.jList.getSelectedValue() != null) {
-                EditPanel editPanel = new EditPanel(MainWindowInstance.jList.getSelectedValue().toString());
+                EditPanel editPanel = null;
+                try {
+                    editPanel = new EditPanel(MainWindowInstance.jList.getSelectedValue().toString());
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                MainWindowInstance.editJPanel = editPanel;
                 MainWindowInstance.add(editPanel);
                 MainWindowInstance.remove(MainWindowInstance.mainJPanel);
                 MainWindowInstance.revalidate();

@@ -71,5 +71,11 @@ public class DataBase {
         return result;
     }
 
+    public static void deleteContacts (int idN) throws SQLException {
+        String sql = String.format("DELETE FROM Contacts WHERE idN = '%s' ", idN);
+        PreparedStatement st = DataBase.con.prepareStatement(sql);
+        st.execute();
+    }
+
 
 }

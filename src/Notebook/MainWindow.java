@@ -1,6 +1,7 @@
 package Notebook;
 
 import Notebook.Database.DataBase;
+import Notebook.Panels.EditPanel;
 import Notebook.Panels.MainPanel;
 import Notebook.Panels.PlusPanel;
 
@@ -22,6 +23,7 @@ public class MainWindow extends JFrame {
 
     public MainPanel mainJPanel ;
     public PlusPanel plusJPanel ;
+    public EditPanel editJPanel ;
 
 
     public MainWindow() throws SQLException {

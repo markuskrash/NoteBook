@@ -1,13 +1,12 @@
 package Notebook.Panels;
 
-import Notebook.Actions.AddContactListener;
+import Notebook.Actions.AddContactListenerPlus;
 import Notebook.Actions.AddNoteListener;
+import Notebook.Actions.EditContactListenerPlus;
 import Notebook.MainWindow;
-import Notebook.Database.Note;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.SQLException;
 import java.util.Vector;
 
 public class PlusPanel extends JPanel {
@@ -69,9 +68,13 @@ public class PlusPanel extends JPanel {
 
         add(confirmBtn, gbc);
 
-        addContactBtn.addActionListener(new AddContactListener());
+        addContactBtn.addActionListener(new AddContactListenerPlus());
 
         backBtn.addActionListener(e -> {
+            MainWindowInstance.plusJPanel.nameJTF.setText("");
+            MainWindowInstance.plusJPanel.contacts = new Vector<String>();
+            MainWindowInstance.plusJPanel.contactsList.setListData(MainWindowInstance.plusJPanel.contacts);
+
             MainWindowInstance.add(MainWindowInstance.mainJPanel);
             MainWindowInstance.remove(MainWindowInstance.plusJPanel);
             MainWindowInstance.revalidate();
@@ -79,5 +82,7 @@ public class PlusPanel extends JPanel {
         });
 
         confirmBtn.addActionListener(new AddNoteListener());
+
+        contactsList.addMouseListener(new EditContactListenerPlus());
     }
 }
